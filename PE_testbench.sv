@@ -12,23 +12,23 @@ module PE_testbench();
     clk = 1'b0; // 初始化时钟信号为 0
     // 初始化输入值和控制信号
     E = 8'b00000001;
-    S = 8'b00000011;
+    S = 8'b00000111;
     W = 8'b00000010;
     N = 8'b00001111;
 
     //output（3bit）_op1(3bit)_op2(3bit)_opcode(2bit)
-    ctrl = 11'b101_000_001_00; // E+S->REG1
-  // reg1=100 (4)
+    ctrl = 11'b011_000_001_00; // 
+  // S=100 (4)
 
 
     // 在时钟上升沿时，更新寄存器的值
-    #100 ctrl = 11'b110_100_010_10; // REG1*W->REG2
+    #100 ctrl = 11'b110_001_010_10; // REG1*W->REG2
   // REG2=4*2=1000(8)
 
 
     // 在时钟上升沿时，更新寄存器的值
     // 除法保留整数部分
-    #100 ctrl = 11'b100_101_100_11; // REG1/REG2->Data_mem
+    #100 ctrl = 11'b100_011_011_11; // REG1/REG2->Data_mem
     // 4/8=0.5
 
   end
@@ -40,7 +40,10 @@ module PE_testbench();
   end
 
 
-  PE uut (
+  PE02 #(
+    .ctrl_width(11),
+    .data_width(8)
+  )  uut (
     .clk(clk), // 添加时钟信号
     .ctrl(ctrl),
     .E(E),
@@ -53,13 +56,5 @@ module PE_testbench();
     .OutputN(OutputN),
     .Data_memory(Data_memory)
   );
-
-
-/*
-  always begin
-    $display("clk= %b,OutputE = %b, OutputS = %b, OutputW = %b, OutputN = %b, Data_memory = %b",
-             clk,OutputE, OutputS, OutputW, OutputN, Data_memory);
-  end
-  */
 
 endmodule
