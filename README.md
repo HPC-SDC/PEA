@@ -21,3 +21,18 @@ input reg [10:0] ctrl,  //output（3bit）_op1(3bit)_op2(3bit)_opcode(2bit)
 5.ALU部分改为组合逻辑  ANSWER:使用always@(*)综合出组合逻辑
 
 6.config reg 也设置成 parameter,即另外单元传输长度可变的ctrl信号
+
+
+# 20240127版本 PEv04
+1.新增了complex PE的相关代码，PEv04.sv是单个complex PE的实现文件
+
+2.FP文件夹是浮点运算需要用到的module，编译的时候要一起加入Modelsim编译
+
+3.output(3bit)_op1(3bit)_op2(3bit)_opcode(3bit) //控制信号一共12bit，其中opcode为3bit是预留了其他complex运算的位置
+
+4.时钟开始为 1 ，然后翻转
+
+5.浮点运算的PE会延迟3个周期得到结果，所以使用delay_ctrl信号打三拍; 一定是上升沿触发！
+
+6.最后使用打三拍之后的delay_ctrl和来控制输出
+
