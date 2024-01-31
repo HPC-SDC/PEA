@@ -36,3 +36,26 @@ input reg [10:0] ctrl,  //output（3bit）_op1(3bit)_op2(3bit)_opcode(2bit)
 
 6.最后使用打三拍之后的delay_ctrl和来控制输出
 
+# 20240131版本 
+
+## PEv05
+
+1.PEv04是已经稳定的浮点运算模块，新增的PEv05是basic的运算，包括加减乘除，逻辑上的NOP,AND,OR,XOR,NOT等等。
+
+2.为了保持和FP的一致性，保留了input_ready和output——ready信号。
+
+## Operator中的steer和comp
+
+1.仍然和之前一样采用ctrl为13位，多的位暂时不管，控制>,<,==,!=这四种情况
+
+2.注意！comp单元的输出结果是以data流形式输出的！32位的0和32位的1.
+
+## LS——tile
+
+1.参考下图实现
+<img width="506" alt="image" src="https://github.com/HPC-SDC/PEA/assets/150303558/fe8426c6-5182-49a5-924f-fa76feab4fc7">
+
+
+
+
+
